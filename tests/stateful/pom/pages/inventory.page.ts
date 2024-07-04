@@ -1,10 +1,10 @@
 import { expect, Page } from "@playwright/test";
+import AbstractPage from "./abstract.page";
 
-export default class InventoryPage {
-    page: Page;
+export default class InventoryPage extends AbstractPage {
 
     constructor(page: Page) {
-        this.page = page;
+        super(page);
     }
     
     private readonly dismiss = () => this.page.locator('xpath=//span[contains(text(),"Dismiss")]');

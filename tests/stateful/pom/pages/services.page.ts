@@ -1,10 +1,10 @@
 import { expect, Page } from "@playwright/test";
+import AbstractPage from "./abstract.page";
 
-export default class ServicesPage {
-    page: Page;
+export default class ServicesPage extends AbstractPage {
 
     constructor(page: Page) {
-        this.page = page;
+        super(page);
     }
 
     private readonly opbeansGo = () => this.page.locator('xpath=//span[contains(text(),"opbeans-go")]');

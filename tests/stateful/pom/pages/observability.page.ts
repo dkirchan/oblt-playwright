@@ -1,10 +1,10 @@
 import { Page } from "@playwright/test";
+import AbstractPage from "./abstract.page";
 
-export default class ObservabilityPage {
-    page: Page;
+export default class ObservabilityPage extends AbstractPage {
 
     constructor(page: Page) {
-        this.page = page;
+        super(page);
     }
 
     private readonly alerts = () => this.page.getByTestId('observability-nav-observability-overview-alerts');

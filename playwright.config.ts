@@ -119,7 +119,7 @@ export default defineConfig({
           },
         },
       },
-      dependencies: ["stateful_auth"],
+      dependencies: [],
       //teardown: 'stateful_teardown',
     },
     {

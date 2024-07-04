@@ -1,5 +1,7 @@
+import { Advice } from "./advice.enum";
+
 export interface Aspect {
-    execute(ctx: AspectContext): any;
+    execute(ctx: AspectContext, advice: Advice): any;
 }
 
 export type AspectContext = {

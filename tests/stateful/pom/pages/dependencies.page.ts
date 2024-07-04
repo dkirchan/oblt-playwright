@@ -1,10 +1,10 @@
 import { expect, Page } from "@playwright/test";
+import AbstractPage from "./abstract.page";
 
-export default class DependenciesPage {
-    page: Page;
+export default class DependenciesPage extends AbstractPage {
 
     constructor(page: Page) {
-        this.page = page;
+        super(page);
     }
 
     private readonly dependenciesOperationsTab = () => this.page.getByRole('tab', { name: 'Operations' });

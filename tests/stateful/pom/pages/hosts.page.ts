@@ -1,10 +1,10 @@
 import { expect, Page } from "@playwright/test";
+import AbstractPage from "./abstract.page";
 
-export default class HostsPage {
-    page: Page;
+export default class HostsPage extends AbstractPage {
 
     constructor(page: Page) {
-        this.page = page;
+        super(page);
     }
 
     private readonly hostsNumber = () => this.page.locator('xpath=//div[@data-test-subj="hostsViewKPI-hostsCount"]//p[@class="echMetricText__value"]');

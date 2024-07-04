@@ -25,7 +25,7 @@ export async function asyncProxyFunc(
         if (adviceAspectMap.has(Advice.TryCatch)) {
             adviceAspectMap.get(Advice.TryCatch)?.forEach(aspect => {
                 aspectCtx.error = error;
-                aspect.execute(aspectCtx);
+                aspect.execute(aspectCtx, Advice.TryCatch);
             });
         } else {
             throw error;
@@ -33,7 +33,7 @@ export async function asyncProxyFunc(
     } finally {
         if (adviceAspectMap.has(Advice.TryFinally)) {
             adviceAspectMap.get(Advice.TryFinally)?.forEach(aspect => {
-                aspect.execute(aspectCtx);
+                aspect.execute(aspectCtx, Advice.TryFinally);
             });
         }
     }
@@ -66,7 +66,7 @@ export function proxyFunc(
         if (adviceAspectMap.has(Advice.TryCatch)) {
             adviceAspectMap.get(Advice.TryCatch)?.forEach(aspect => {
                 aspectCtx.error = error;
-                aspect.execute(aspectCtx);
+                aspect.execute(aspectCtx, Advice.TryCatch);
             });
         } else {
             throw error;
@@ -74,7 +74,7 @@ export function proxyFunc(
     } finally {
         if (adviceAspectMap.has(Advice.TryFinally)) {
             adviceAspectMap.get(Advice.TryFinally)?.forEach(aspect => {
-                aspect.execute(aspectCtx);
+                aspect.execute(aspectCtx, Advice.TryFinally);
             });
         }
     }
@@ -90,13 +90,12 @@ function applyPreExecutionAspects(
 ): void {
     if (adviceAspectMap.has(Advice.Before)) {
         adviceAspectMap.get(Advice.Before)?.forEach(aspect => {
-            aspect.execute(aspectCtx);
+            aspect.execute(aspectCtx, Advice.Before);
         });
     }
     if (adviceAspectMap.has(Advice.Around)) {
-        console.log("Before aspect");
         adviceAspectMap.get(Advice.Around)?.forEach(aspect => {
-            aspect.execute(aspectCtx);
+            aspect.execute(aspectCtx, Advice.Before);
         });
     }
 }
@@ -106,21 +105,20 @@ function applyPostExecutionAspects(
     adviceAspectMap: AdviceAspectMap,
 ): void {
     if (adviceAspectMap.has(Advice.Around)) {
-        console.log("After aspect");
         adviceAspectMap.get(Advice.Around)?.forEach(aspect => {
-            aspect.execute(aspectCtx);
+            aspect.execute(aspectCtx, Advice.After);
         });
     }
 
     if (adviceAspectMap.has(Advice.After)) {
         adviceAspectMap.get(Advice.After)?.forEach(aspect => {
-            aspect.execute(aspectCtx);
+            aspect.execute(aspectCtx, Advice.After);
         });
     }
 
     if (adviceAspectMap.has(Advice.AfterReturn)) {
         adviceAspectMap.get(Advice.AfterReturn)?.forEach(aspect => {
-            aspectCtx.returnValue = aspect.execute(aspectCtx);
+            aspectCtx.returnValue = aspect.execute(aspectCtx, Advice.After);
         });
     }
 }

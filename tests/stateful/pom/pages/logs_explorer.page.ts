@@ -1,10 +1,10 @@
 import { expect, Page } from "@playwright/test";
+import AbstractPage from "./abstract.page";
 
-export default class LogsExplorerPage {
-    page: Page;
+export default class LogsExplorerPage extends AbstractPage {
 
     constructor(page: Page) {
-        this.page = page;
+        super(page);
     }
 
     private readonly logsSearchField = () => this.page.getByPlaceholder('Search field names');

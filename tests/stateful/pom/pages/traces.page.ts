@@ -1,10 +1,10 @@
 import { expect, Page } from "@playwright/test";
+import AbstractPage from "./abstract.page";
 
-export default class TracesPage {
-    page: Page;
+export default class TracesPage extends AbstractPage {
 
     constructor(page: Page) {
-        this.page = page;
+      super(page);
     }
 
     private readonly tracesExplorerTab = () => this.page.getByRole('tab', { name: 'Explorer' });

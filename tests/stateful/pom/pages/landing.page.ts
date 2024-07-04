@@ -1,14 +1,10 @@
 import { Page } from "@playwright/test";
-import { addAspectToPointcut } from "../../../../src/aspect/addAspectToPointcut";
-import { LogAspect } from "../../../../src/aspect";
-import { Advice } from "../../../../src/aspect/advice.enum";
+import AbstractPage from "./abstract.page";
 
-export default class LandingPage {
-    page: Page;
+export default class LandingPage extends AbstractPage {
 
     constructor(page: Page) {
-        this.page = page;
-        addAspectToPointcut(page, '.*', Advice.Around, new LogAspect());
+        super(page);
     }
 
     public async goto() {
@@ -17,6 +13,9 @@ export default class LandingPage {
 
     readonly spaceSelector = () => this.page.locator('xpath=//h1[contains(text(),"Select your space")]');
     private readonly toggleNavButton = () => this.page.getByTestId('toggleNavButton');
+    private readonly securitySolutionDashboards = () => this.page.getByTestId('collapsibleNavGroup-securitySolution').getByRole('link', { name: 'Dashboards' });
+    private readonly overview = () => this.page.getByTestId('LandingImageCard-item').getByRole('link', { name: 'Overview' });
+
     private readonly homeLink = () => this.page.getByTestId('homeLink');
     private readonly discover = () => this.page.locator('xpath=//span[@title="Discover"]');
     private readonly dashboards = () => this.page.locator('xpath=//div[@class="euiFlyoutBody__overflowContent"]//*[contains(text(),"Dashboards")]');
@@ -26,6 +25,14 @@ export default class LandingPage {
     private readonly alerts = () => this.page.getByTestId('observability-nav-observability-overview-alerts');
     private readonly infrastructure = () => this.page.getByRole('link', { name: 'Infrastructure' });
     private readonly stackManagement = () => this.page.locator('xpath=//span[@title="Stack Management"]');
+
+    public async clickSecuritySolutionDashboards() {
+        await this.securitySolutionDashboards().click();
+    }
+
+    public async clickOverview() {
+        await this.overview().click();
+    }
 
     public async clicktoggleNavButton() {
         await this.toggleNavButton().click();

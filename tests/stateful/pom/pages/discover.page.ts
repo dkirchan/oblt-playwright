@@ -1,10 +1,10 @@
 import { expect, Page } from "@playwright/test";
+import AbstractPage from "./abstract.page";
 
-export default class DiscoverPage {
-    page: Page;
+export default class DiscoverPage extends AbstractPage {
 
     constructor(page: Page) {
-        this.page = page;
+        super(page);
     }
 
     private readonly canvas = () => this.page.locator('xpath=//canvas[contains(@class, "echCanvasRenderer")]');
